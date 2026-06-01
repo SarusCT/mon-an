@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Be_Vietnam_Pro } from "next/font/google";
+import { getSiteUrl } from "@/lib/siteUrl";
 import "./globals.css";
 
 const serif = Playfair_Display({
@@ -16,12 +17,8 @@ const sans = Be_Vietnam_Pro({
   display: "swap",
 });
 
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ??
-  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
-
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(getSiteUrl()),
 };
 
 export default function RootLayout({

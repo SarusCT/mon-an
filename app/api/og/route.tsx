@@ -1,14 +1,10 @@
 import { ImageResponse } from "next/og";
 import { getToday } from "@/lib/picker";
 
-export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
-export const size = { width: 1200, height: 630 };
-export const contentType = "image/png";
-export const alt = "Món ăn hôm nay";
+export const dynamic = "force-dynamic";
 
-// Tải ảnh về server và chuyển sang data URL để nhúng an toàn vào OG image.
-// Nếu lỗi -> trả null và OG render dạng gradient chữ (fallback).
+// Tải ảnh về server và chuyển sang data URL để nhúng an toàn. Lỗi -> null (fallback gradient).
 async function toDataUrl(url: string): Promise<string | null> {
   if (!url) return null;
   try {
@@ -22,7 +18,7 @@ async function toDataUrl(url: string): Promise<string | null> {
   }
 }
 
-export default async function OgImage() {
+export async function GET() {
   let food = "Hôm nay ăn gì?";
   let date = "";
   let image = "";
@@ -69,7 +65,6 @@ export default async function OgImage() {
             }}
           />
         ) : null}
-        {/* Lớp phủ kem ấm để chữ đọc rõ + giữ tông vintage */}
         <div
           style={{
             position: "absolute",
@@ -79,7 +74,6 @@ export default async function OgImage() {
               "linear-gradient(180deg, rgba(242,233,216,0.55) 0%, rgba(67,56,43,0.78) 100%)",
           }}
         />
-        {/* khung viền giấy */}
         <div
           style={{
             position: "absolute",
@@ -101,9 +95,7 @@ export default async function OgImage() {
             color: "#fbf5e8",
           }}
         >
-          <div style={{ fontSize: 30, fontStyle: "italic", opacity: 0.9 }}>
-            {date}
-          </div>
+          <div style={{ fontSize: 30, fontStyle: "italic", opacity: 0.9 }}>{date}</div>
           <div
             style={{
               fontSize: 26,
@@ -132,6 +124,13 @@ export default async function OgImage() {
         </div>
       </div>
     ),
-    { ...size }
+    {
+      width: 1200,
+      height: 630,
+      headers: {
+        // cache theo ngày (URL có ?d=YYYY-MM-DD nên mỗi ngày là 1 link mới)
+        "Cache-Control": "public, max-age=600, s-maxage=600",
+      },
+    }
   );
 }
