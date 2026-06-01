@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: var(--font-sans), system-ui, sans-serif;
+  color: #43382b;
+  background-color: #f2e9d8;
+  /* nền giấy kem ấm với chút vân loang nhẹ */
+  background-image:
+    radial-gradient(at 18% 12%, rgba(181, 101, 75, 0.08) 0px, transparent 45%),
+    radial-gradient(at 82% 18%, rgba(140, 154, 122, 0.1) 0px, transparent 45%),
+    radial-gradient(at 50% 95%, rgba(194, 151, 74, 0.08) 0px, transparent 45%);
+  background-attachment: fixed;
+}
