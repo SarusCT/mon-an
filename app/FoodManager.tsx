@@ -170,7 +170,7 @@ export default function FoodManager() {
         {loading ? (
           <p className="px-4 py-6 text-center text-sm italic text-muted">Đang tải…</p>
         ) : (
-          <ul className="max-h-[22rem] overflow-y-auto">
+          <ul className="scroll-warm max-h-[22rem] overflow-y-auto">
             {foods.map((f) => (
               <li
                 key={f.id}

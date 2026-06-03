@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Be_Vietnam_Pro } from "next/font/google";
 import { getSiteUrl } from "@/lib/siteUrl";
+import MoneyPopover from "@/components/MoneyPopover";
 import "./globals.css";
 
 const serif = Playfair_Display({
@@ -28,7 +29,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="vi" className={`${serif.variable} ${sans.variable}`}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <MoneyPopover />
+      </body>
     </html>
   );
 }

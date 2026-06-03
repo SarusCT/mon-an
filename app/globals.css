@@ -19,3 +19,28 @@ body {
     radial-gradient(at 50% 95%, rgba(194, 151, 74, 0.08) 0px, transparent 45%);
   background-attachment: fixed;
 }
+
+/* Thanh cuộn ấm, hợp tone giấy — terracotta trên nền kem */
+.scroll-warm {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(181, 101, 75, 0.45) transparent;
+}
+.scroll-warm::-webkit-scrollbar {
+  width: 8px;
+}
+.scroll-warm::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 4px 0;
+}
+.scroll-warm::-webkit-scrollbar-thumb {
+  background-color: rgba(181, 101, 75, 0.4);
+  border-radius: 9999px;
+  /* viền trong suốt tạo khoảng đệm, nhìn thanh mảnh hơn */
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  transition: background-color 0.2s ease;
+}
+.scroll-warm:hover::-webkit-scrollbar-thumb,
+.scroll-warm::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(181, 101, 75, 0.7);
+}
