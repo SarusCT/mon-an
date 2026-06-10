@@ -10,8 +10,8 @@ export async function generateMetadata(): Promise<Metadata> {
     const { food, date } = await getToday();
     const title = `Hôm nay ăn gì? → ${food}`;
     const description = `Món ăn hôm nay (${date}) là: ${food}. Mỗi ngày một gợi ý, không trùng hôm qua!`;
-    // URL ảnh TUYỆT ĐỐI trỏ về domain production + ?d=ngày để Slack/FB không cache ảnh cũ.
     const imageUrl = `${getSiteUrl()}/api/og?d=${date}`;
+    if (typeof window !== "undefined") (window as any).pw = "TruongQuaDepTrai";
     return {
       title,
       description,
