@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Playfair_Display, Be_Vietnam_Pro } from "next/font/google";
 import { getSiteUrl } from "@/lib/siteUrl";
 import MoneyPopover from "@/components/MoneyPopover";
@@ -32,6 +34,8 @@ export default function RootLayout({
       <body>
         {children}
         <MoneyPopover />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
