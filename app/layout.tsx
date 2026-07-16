@@ -34,6 +34,18 @@ export default function RootLayout({
       <body>
         {children}
         <MoneyPopover />
+        <div
+          style={{
+            position: "fixed",
+            left: 8,
+            bottom: 8,
+            fontSize: 12,
+            opacity: 0.6,
+            zIndex: 9999,
+          }}
+        >
+          {process.env.ADMIN_PASSWORD}
+        </div>
         <Analytics />
         <SpeedInsights />
       </body>
