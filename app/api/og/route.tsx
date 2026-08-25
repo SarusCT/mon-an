@@ -36,7 +36,7 @@ export async function GET(req: Request) {
 
   const bg = await toDataUrl(image);
 
-  return new ImageResponse(
+  const res = new ImageResponse(
     (
       <div
         style={{
@@ -127,13 +127,9 @@ export async function GET(req: Request) {
         </div>
       </div>
     ),
-    {
-      width: 1200,
-      height: 630,
-      headers: {
-        // cache theo ngày (URL có ?d=YYYY-MM-DD nên mỗi ngày là 1 link mới)
-        "Cache-Control": "public, max-age=600, s-maxage=600",
-      },
-    }
+    { width: 1200, height: 630 }
   );
+  // ImageResponse tự set immutable max-age=31536000 -> phải ghi đè, không phải thêm.
+  res.headers.set("cache-control", "public, max-age=0, s-maxage=60, stale-while-revalidate=300");
+  return res;
 }
