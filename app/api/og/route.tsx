@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-import { getToday } from "@/lib/picker";
+import { getPick, getToday } from "@/lib/picker";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -18,12 +18,15 @@ async function toDataUrl(url: string): Promise<string | null> {
   }
 }
 
-export async function GET() {
+const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+
+export async function GET(req: Request) {
   let food = "Hôm nay ăn gì?";
   let date = "";
   let image = "";
   try {
-    const data = await getToday();
+    const d = new URL(req.url).searchParams.get("d");
+    const data = (d && DATE_RE.test(d) ? await getPick(d) : null) ?? (await getToday());
     food = data.food;
     image = data.image;
     date = data.date.split("-").reverse().join("/");

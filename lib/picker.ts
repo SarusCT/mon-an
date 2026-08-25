@@ -44,6 +44,13 @@ function pickFood(pool: string[], previous: string | null): string {
   return candidates[Math.floor(Math.random() * candidates.length)];
 }
 
+export async function getPick(date: string): Promise<DayPick | null> {
+  const food = await redis.get<string>(keyFor(date));
+  if (!food) return null;
+  const foods = await getFoods();
+  return { date, food, image: foods.find((f) => f.name === food)?.image ?? "" };
+}
+
 // Lấy món hôm nay (cố định cả ngày) + lịch sử + bảng xếp hạng tuần.
 export async function getToday(): Promise<TodayResult> {
   const foods = await getFoods();
